@@ -1,0 +1,193 @@
+﻿@using CarRental.Areas.Admin.Models;
+
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model CarRental.Areas.Admin.Models.InfoUser;
+
+
+<body >
+	<div style="background:#f6f6f6;padding:80px 0; height:100%">
+
+	
+	<div class="container">
+		<div class="row">
+		@* <div id="sidebar" class="img col-4">
+
+											
+						<a href="#" id="acc"><span class=" fa fa-home mr-3"></span> tài khoản của tôi</a>
+	
+						<a href="#" id="chuyendi"><span class=" fa fa-user mr-3"></span> Chuyến đi của tôi</a>
+				
+						<a id="mycar" href="#"><span class="fa fa-plane mr-3"></span> Xe của tôi</a>
+				
+						<a id="doimatkhau" href="#"><span class="fa fa-sticky-note mr-3"></span> Đổi mật khẩu</a>
+				
+						<a id="history" href="#"><span class="fa fa-cogs mr-3"></span>Lịch sử thuê xe</a>
+
+						<a href="#"><span class="fa fa-paper-plane mr-3"></span> Xóa tài khoản</a>
+		</div> *@
+		 <div class="col-4 nav-profile">
+                <div class="nav-profile-title">
+                    <h4>Xin chào bạn!</h4>
+                </div>
+                <div class="nav-profile-sidebar">
+                    <a class="active" id="acc" href="#"><i class="fa-solid fa-user"></i>Thông tin cá nhân</a>
+                    <a href="#" id="chuyendi"><i class="fa-solid fa-list"></i>Chuyến đi</a>
+                    <a href="#" id="mycar"><i class="fa-solid fa-car"></i>Xe của tôi</a>
+                    <a href="#" id="doimatkhau"><i class="fa-solid fa-lock"></i>Đổi mật khẩu</a>
+                    <a href="#" id="history"><i class="fa-solid fa-clock-rotate-left"></i>Lịch sử thuê xe</a>
+                    <a href="#"><i class="fa-solid fa-trash"></i>Xóa tài khoản</a>
+						<a href="#" id="testing" ><i class="fa-solid fa-trash"></i>Xóa tài khoản</a>
+
+                </div>
+            </div>
+
+		<!-- Page Content  -->
+		<div id="content" class="col-8">
+
+
+			@if(ViewBag.Noti != null)
+			{
+				<span>Bạn chưa xác thực thông tin, vui lòng xác thực để truy cập nhiều tính năng</span>
+				
+			}
+			else
+			{
+				@await Html.PartialAsync("_AccountPartialView");
+				
+			}
+			
+		</div>
+		</div>
+	</div>
+
+	
+   </div>
+</body>
+</html>
+
+
+
+@section scripts {
+	<script>
+		$(document).ready(function () {
+
+
+			$("#chuyendi").click(function () {
+
+				$.ajax({
+					type: "Get",
+					url: "@Url.Action("ListAllChuyenDi", "Profiles")",
+
+					success: function (res) {
+
+						$("#content").html(res)
+						console.log("Thanhcong")
+
+					},
+					error: function () {
+						alert("Không thể hoàn thành đơn, vui lòng kiểm tra lại thông tin");
+					}
+				});
+			});
+
+
+			$("#testing").click(function () {
+
+
+
+				$.ajax({
+					type:"Get",
+					url:"@Url.Action("testing","Profiles")",
+					success: function (res) {
+						alert(res);
+						
+					},
+
+					error: function (res) {
+						alert(res);
+					} 
+
+				});
+			});
+
+		});
+
+		$(document).ready(function () {
+			$("#mycar").click(function () {
+
+				$.ajax({
+					type: "get",
+					url: "@Url.Action("StateXe","Profiles")",
+					success: function (res) {
+						$("#content").html(res)
+						console.log("Thanhcong")
+					},
+					error: function () {
+						alert("khong hien tinh trang xe")
+					}
+				});
+			});
+		});
+		$(document).ready(function () {
+			$("#acc").click(function () {
+
+				$.ajax({
+					type: "Get",
+					url: "@Url.Action("Acc","Profiles")",
+					success: function (res) {
+						$("#content").html(res)
+					},
+					error: function () {
+						alert("Không thê3 qua acc")
+					}
+				})
+			});
+
+
+
+		});
+
+		$(document).ready(function () {
+			$("#doimatkhau").click(function () {
+
+				$.ajax({
+					type: "Get",
+					url: "@Url.Action("Matkhau","Profiles")",
+					success: function (res) {
+						$("#content").html(res)
+					},
+					error: function () {
+						alert("Không thê qua Mk")
+					}
+				})
+			});
+
+
+
+		});
+
+		$(document).ready(function () {
+			$("#history").click(function () {
+
+				$.ajax({
+					type: "Get",
+					url: "@Url.Action("History","Profiles")",
+					success: function (res) {
+						$("#content").html(res)
+					},
+					error: function () {
+						alert("Không thê qua Mk")
+					}
+				})
+			});
+
+
+
+		});
+
+
+	</script>
+}

@@ -1,0 +1,106 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutRegis.cshtml";
+}
+@using CarRental.Areas.Admin.Models
+@model CarRental.Areas.Admin.Models.User;
+
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+
+<form asp-action="Regis">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <style>
+        .bg-log {
+            background-image: url('../img/black-sedan-car-driving-bridge-road.jpg');
+            width: 100%;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+
+    <div class="vh-100 bg-log">
+        <div class="container py-3 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card bg-dark text-white" style="border-radius: 1rem;">
+        
+                            <div class="">
+
+                                <h2 class="fw-bold mb-2 text-uppercase">Register</h2>
+                                <p class="text-white-50 mb-3">Create An Account</p>
+
+                                <div class="form-outline form-white mb-4">
+                                    <label class="form-label mb-2" asp-for="UserName">UserName</label>
+                                <input type="text" asp-for="UserName" class="form-control form-control-lg" />
+                                    <span asp-validation-for="UserName" class="text-danger"></span>
+                                </div>
+                                <div class="form-outline form-white mb-4">
+                                <label class="form-label mb-2" asp-for="Password">Password</label>
+                                <input type="password" asp-for="Password" class="form-control form-control-lg" />
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                                <div class="form-outline form-white mb-4">
+                                <label class="form-label mb-2" asp-for="Email" >Email</label>
+                                <input type="email" asp-for="Email" class="form-control form-control-lg" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-outline form-white mb-4">
+                                    <label class="form-label mb-2" asp-for="Phone">Phone</label>
+                                <input type="number" asp-for="Phone" class="form-control form-control-lg" />
+                                    <span asp-validation-for="Phone" class="text-danger"></span>
+                                </div>
+
+
+
+                                <button class="btn btn-outline-light btn-lg px-5" type="submit" value="Create">Register</button>
+
+                                <div class="d-flex justify-content-center text-center my-4 pt-1">
+                                    <a href="#!" class="text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
+                                    <a href="#!" class="text-white"><i class="fab fa-twitter fa-lg mx-4 px-2"></i></a>
+                                    <a href="#!" class="text-white"><i class="fab fa-google fa-lg"></i></a>
+                                </div>
+
+                            </div>
+
+                            <div>
+                                <p class="mb-0">
+                                    Have already an account? <a href="~/home/login" class="text-white-50 fw-bold">Login here</a>
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   @*  <div class="form-group">
+        <label asp-for="UserName" class="control-label"></label>
+        <input asp-for="UserName" class="form-control" />
+        <span asp-validation-for="UserName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password" class="control-label"></label>
+        <input asp-for="Password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email" class="control-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Phone" class="control-label"></label>
+        <input asp-for="Phone" class="form-control" />
+        <span asp-validation-for="Phone" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div> *@
+</form>

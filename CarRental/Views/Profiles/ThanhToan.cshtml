@@ -1,0 +1,203 @@
+﻿@using CarRental.Areas.Admin.Models;
+
+@{
+	ViewData["Title"] = "ThanhToan";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model DonDatXe;
+
+
+@if(Model != null)
+{
+	<div class="container">
+
+	<div class="row">
+		<div class="col-6">
+
+
+	<img src="@Url.Content("~/Upload/" + Model.SanPham.Img)" style="width:100%" />
+			
+		</div>
+		<div class="col-6">
+
+			<div class="row">
+				<div class="col-6">
+					Ngay nhan
+				</div>
+					<div class="col-6">
+						<lable id="in">
+							@Model.checkin
+						</lable>
+					</div>
+
+				<div class="col-6">
+					Ngay tra
+				</div>
+					<div class="col-6">
+						<lable id="out">
+							@Model.checkout
+						</lable>
+					</div>
+					<div class="col-6">
+						Dia diem giao xe
+					</div>
+					<div class="col-6">
+						<lable>
+							@Model.Location
+						</lable>
+					</div>
+					<div class="col-6">
+						Gia thue
+					</div>
+					<div class="col-6">
+						<label id="gia">
+							@Model.SanPham.Gia
+						</label>
+					</div>
+					<div class="col-6">
+						Tong so ngay
+					</div>
+					<div class="col-6">
+						<label id="tongsongay">
+							@ViewBag.TotalDay
+						</label>
+					</div>
+					<div class="col-6">
+						Tong cong
+					</div>
+					<div class="col-6">
+						<label id="totalGia">
+							@ViewBag.TotalGia
+						</label>
+					</div>
+					<button type="button" id="thanhtoan" class="btn btn-link font-18 text-muted btn-sm">
+						Chấp nhận
+
+					</button>
+			</div>
+
+
+
+
+
+
+
+
+
+				<label id="idchu" style="display: none;" value="@Model.IdOwner"></label>
+
+			
+	</div>
+
+	<div>
+		
+
+	</div>
+		</div>
+
+	<input type="hidden" id="Idddx" value="@Model.ID">
+	<input type="hidden" id="Idchu" value="@Model.IdOwner">
+	</div>
+	
+}
+else
+{
+	<h2>
+		ko có data
+	</h2>
+}
+
+
+<div class="modal fade" id="thongbao" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle1" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle1"></h5>				
+			</div>
+			<div class="modal-body">
+				<div class="row my-2">
+					<span>
+						Bạn đã thanh toán thành công
+					</span>
+				</div>
+			</div>
+
+
+			<div class="modal-footer">
+				
+				<button id="ok" type="button" class="btn btn-primary">Đặt xe</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+
+<script src="~/assets/js/vendor.min.js"></script>
+
+<script src="~/assets/libs/apexcharts/apexcharts.min.js"></script>
+<script src="~/assets/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
+<script src="~/assets/libs/jquery-vectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="~/assets/libs/jquery-vectormap/jquery-jvectormap-world-mill-en.js"></script>
+
+
+<!-- Peity chart-->
+<script src="~/assets/libs/peity/jquery.peity.min.js"></script>
+
+	
+
+<script>
+
+	$(document).ready(function () {
+		ThanhToan();
+	});
+
+	// $(document).ready(function () {
+		
+	// 	$("#thanhtoan").click(function () {
+
+	// 		var Id = $("#Idddx").val();
+	// 		var Idchu = $("#Idchu").val();
+	// 		var tol = $("#total").val();
+
+
+	// 		console.log(1);
+
+
+	// 		$.ajax({
+
+	// 			type: "Post",
+	// 			url: "@Url.Action("ThanhToan","Profiles"),
+	// 					data: {
+	// 				Idchu: Idchu,
+	// 				Id: Id,
+	// 				Total: tol
+	// 			},
+	// 			success: function () {
+	// 				$('#thongbao').modal('show');
+
+	// 			},
+	// 			error: function () {
+	// 				alert("Sai APi");
+	// 			}
+
+
+	// 		});
+
+
+
+	// 	});
+
+	// 	$("#ok").click(function () {
+	// 		window.location.href = "/Home/Index";
+	// 	});
+
+
+	// });
+</script>

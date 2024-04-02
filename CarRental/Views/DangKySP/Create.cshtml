@@ -1,0 +1,102 @@
+﻿@model CarRental.Areas.Admin.Models.ViewModel.XeTinhNangViewModel;
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="bg-page" style="width:100%; height:100%; background:#f6f6f6;padding-bottom:80px;padding-top:80px;">
+
+    <div class="container" style="border-radius:10px; background:#fff;border: 1px solid #e0e0e0;">
+        <div class="row">
+            <div class="col-6 col6-form">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="IdHang" class="control-label">Hãng xe</label>
+                        <select id="lstHangId" asp-for="IdHang" class="form-control" asp-items="ViewBag.Hang"
+                                onchange="FillLoais(this,'lstLoaiId');"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IdLoaiXe" class="control-label">Mẫu xe</label>
+                        <select id="lstLoaiId" asp-for="IdLoaiXe" class="form-control" asp-items="ViewBag.Loai"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Bienso" class="control-label">Biển số</label>
+                        <input asp-for="Bienso" class="form-control" />
+                        <span asp-validation-for="Bienso" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Soghe" class="control-label"> Số ghế</label>
+                        <input asp-for="Soghe" class="form-control" />
+                        <span asp-validation-for="Soghe" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Truyendong" class="control-label">Truyền động</label>
+                        <select asp-for="Truyendong" class="form-control">
+                            <option value="1">Số tự động</option>
+                            <option value="2">Số sàn </option>
+
+
+                        </select>
+                        <span asp-validation-for="Truyendong" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LoaiNl" class="control-label">Loại nhiên liệu</label>
+                        <select asp-for="LoaiNl" class="form-control">
+                            <option value="1">Xăng</option>
+                            <option value="2">Dầu </option>
+
+                            <option value="3">Điện </option>
+
+
+
+                        </select>
+                        <span asp-validation-for="LoaiNl" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Mota" class="control-label">Mô tả</label>
+                        <input asp-for="Mota" class="form-control" />
+                        <span asp-validation-for="Mota" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-features">
+                        <table>
+                            @for (int i = 0; i < Model.AvailTinhNang.Capacity; i++)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.HiddenFor(x => Model.AvailTinhNang[i].Id)
+                                        @Html.DisplayFor(it => Model.AvailTinhNang[i].Title)
+                                    </td>
+                                    <td>
+                                        @Html.CheckBoxFor(it => Model.AvailTinhNang[i].IsChecked, new { @class = "form-check-input" })
+
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+
+
+
+                    </div>
+
+
+                    <div class="line-page"></div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary btn-regcar" />
+                    </div>
+                </form>
+            </div>
+            <div class="col-6 col6-img">
+                <img src="~/img/pexels-kamshotthat-3457780.jpg" width="100%" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

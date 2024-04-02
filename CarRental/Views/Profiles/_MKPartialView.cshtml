@@ -1,0 +1,102 @@
+﻿@model CarRental.Areas.Admin.Models.User;
+@{
+    Layout = null;
+}
+
+<div style="background:#fff; border-radius:10px;padding:20px">
+
+<h1>
+    Đổi mật khẩu
+</h1>
+<input id="mk" type="hidden" name="Password" value="@Model.Password" />
+
+<div class="form-group mb-2">
+    <label  class="control-label"> Mật khẩu cũ</label>
+    <input type="password" id="mkcu" class="form-control" />
+    
+</div>
+
+    <div class="form-group mb-2">
+    <label class="control-label"> Mật khẩu mới</label>
+    <input type="password" id="mkmoi" class="form-control" />
+
+</div>
+
+<div class="form-group mb-3">
+    <label class="control-label"> Nhập lại mật khẩu mới</label>
+    <input type="password" id="nhaplai" class="form-control" />
+
+</div>
+<div class ="btn-cfm">
+        <a href="#" id="btnsave">
+            Xác nhận đổi mật khẩu
+        </a>
+</div>
+    
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+
+<script src="~/assets/js/vendor.min.js"></script>
+
+<script src="~/assets/libs/apexcharts/apexcharts.min.js"></script>
+<script src="~/assets/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
+<script src="~/assets/libs/jquery-vectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="~/assets/libs/jquery-vectormap/jquery-jvectormap-world-mill-en.js"></script>
+
+
+<!-- Peity chart-->
+<script src="~/assets/libs/peity/jquery.peity.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $("#btnsave").click(function () {
+
+            var mkcu = $("#mkcu").val();
+            var mk = $("#mk").val();
+            var mkmoi = $("#mkmoi").val();
+            var nhaplai = $("#nhaplai").val();
+            var id = @Model.Id;
+            if (mk == mkcu) {
+
+                if (mkmoi == nhaplai) {
+
+                    $.ajax({
+                        type:"Post",
+                        url:"@Url.Action("UpdateMK","Profiles")",
+                        data: {
+                            Id: id,
+                            mk: mkmoi
+                        },
+                        success: function (res) {
+                            $("#mkcu").val("");
+                            $("#mkmoi").val("");
+                            $("#nhaplai").val("");
+                            alert("cập nhật mật khẩu thành công");
+
+                        },
+                        error: function () {
+                            alert("Có lỗi Api");
+                        }
+                    });
+                }
+                else {
+                    alert("Nhập lại mật khẩu không khớp, vui lòng nhập lại");
+                }
+            }
+            else {
+                alert("Mật khẩu cũ không đúng, vui lòng nhập lại");
+            };
+
+        });
+
+    });
+
+
+</script>

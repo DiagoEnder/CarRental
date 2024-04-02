@@ -1,0 +1,88 @@
+﻿@using CarRental.Areas.Admin.Models
+@model CarRental.Areas.Admin.Models.Role
+
+<style>
+    /* Custom CSS styles for the modal */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+    }
+
+
+
+    .modal-title {
+        font-size: 18px;
+    }
+
+    .modal-body {
+        padding: 10px;
+    }
+
+    .modal-footer {
+        padding: 10px;
+        border-top: 1px solid #ddd;
+        text-align: right;
+    }
+
+    .btn1 {
+        padding: 5px 10px;
+        margin: 0 5px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    .btn-primary1 {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .btn-danger1 {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+    .btn-close1 {
+        float: right;
+    }
+</style>
+
+<div class="modal fade" id="editRole-@Model.Id">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <div>
+                    <h4 class="modal-title">Edit </h4>
+
+                </div>
+                <button type="button" class="btn1 btn-close1" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <form method="post" asp-action="Edit">
+                <input type="hidden" name="id" asp-for="Id" />
+                <div class="modal-body">
+                    <div class="mb-3 mt-3">
+                        <label for="Name">Name:</label>
+                        <input type="text" class="form-control" id="NameRole" placeholder="Nhập tên" name="NameRole">
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" value="Edit" class="btn1 btn-primary1">Lưu</button>
+                    <button type="button" class="btn1 btn-danger1" data-dismiss="modal">Đóng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+@* <script>
+    function redirectToIndex() {
+        window.location.href = '@Url.Action("Index", "Hangs", new { area = "Admin" })';
+    }
+</script> *@

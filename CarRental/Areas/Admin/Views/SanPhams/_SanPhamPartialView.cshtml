@@ -1,0 +1,132 @@
+﻿@using CarRental.Areas.Admin.Models
+@model CarRental.Areas.Admin.Models.SanPham;
+
+<style>
+    /* Custom CSS styles for the modal */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+    }
+
+
+
+    .modal-title {
+        font-size: 18px;
+    }
+
+    .modal-body {
+        padding: 10px;
+    }
+
+    .modal-footer {
+        padding: 10px;
+        border-top: 1px solid #ddd;
+        text-align: right;
+    }
+
+    .btn1 {
+        padding: 5px 10px;
+        margin: 0 5px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    .btn-primary1 {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .btn-danger1 {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+    .btn-close1 {
+        float: right;
+    }
+</style>
+
+<div class="modal fade" id="addSp">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <div>
+                    <h4 class="modal-title">Create San Pham</h4>
+
+                </div>
+                <button type="button" class="btn1 btn-close1" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <form method="post" asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label asp-for="IdInfo" class="control-label"></label>
+                        <select asp-for="IdInfo" class="form-control" asp-items="ViewBag.IdInfo"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IdChuXe" class="control-label"></label>
+                        <select asp-for="IdChuXe" class="form-control" asp-items="ViewBag.IdChuXe"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Loinhan" class="control-label"></label>
+                        <input asp-for="Loinhan" class="form-control" />
+                        <span asp-validation-for="Loinhan" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Diachixe" class="control-label"></label>
+                        <input asp-for="Diachixe" class="form-control" />
+                        <span asp-validation-for="Diachixe" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LimitXechay" class="control-label"></label>
+                        <input asp-for="LimitXechay" class="form-control" />
+                        <span asp-validation-for="LimitXechay" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="GiaVuot" class="control-label"></label>
+                        <input asp-for="GiaVuot" class="form-control" />
+                        <span asp-validation-for="GiaVuot" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Img" class="control-label"></label>
+                        <input asp-for="Img" class="form-control" />
+                        <span asp-validation-for="Img" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="GioiHankmgiaoxe" class="control-label"></label>
+                        <input asp-for="GioiHankmgiaoxe" class="form-control" />
+                        <span asp-validation-for="GioiHankmgiaoxe" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Gia" class="control-label"></label>
+                        <input asp-for="Gia" class="form-control" />
+                        <span asp-validation-for="Gia" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="State" class="control-label"></label>
+                        <input asp-for="State" class="form-control" />
+                        <span asp-validation-for="State" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn1 btn-primary1">Lưu</button>
+                    <button type="button" class="btn1 btn-danger1" data-dismiss="modal">Đóng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+@* <script>
+    function redirectToIndex() {
+        window.location.href = '@Url.Action("Index", "Hangs", new { area = "Admin" })';
+    }
+</script> *@

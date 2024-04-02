@@ -1,0 +1,109 @@
+﻿@model CarRental.Areas.Admin.Models.InfoUser
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>InfoUser</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form enctype="multipart/form-data" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CCCD" class="control-label"></label>
+                <input asp-for="CCCD" class="form-control" />
+                <span asp-validation-for="CCCD" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GPLX" class="control-label"></label>
+                <input asp-for="GPLX" class="form-control" />
+                <span asp-validation-for="GPLX" class="text-danger"></span>
+            </div>
+
+
+
+            <div class="form-group">
+                <div class="mb-3">
+                    <label asp-for="FrontImage2" class="form-label"></label>
+                    <div class="custom-file">
+                        <input asp-for="FrontImage2" type="file" class="custom-file-input2" id="FLFrontImage2"
+                               onchange="document.getElementById('FrontImagePrv2').src = window.URL.createObjectURL(this.files[0])" />
+                        <label class="custom-file-label2" for="FLFrontImage2"></label>
+                    </div>
+                    <span asp-validation-for="FrontImage2" class="text-danger"></span>
+                    <img id="FrontImagePrv2" src="" alt="Logo Images" width="150"
+                         height="150" style="border: 1px; margin-top: 20px; margin-left:120px;" />
+                </div>
+
+            </div>
+
+
+             @*File*@
+            <div class="form-group">
+                <div class="mb-3">
+                    <label asp-for="FrontImage" class="form-label"></label>
+                    <div class="custom-file">
+                        <input asp-for="FrontImage" type="file" class="custom-file-input" id="FLFrontImage"
+                               onchange="document.getElementById('FrontImagePrv').src = window.URL.createObjectURL(this.files[0])" />
+                        <label class="custom-file-label" for="FLFrontImage"></label>
+                    </div>
+                    <span asp-validation-for="FrontImage" class="text-danger"></span>
+                    <img id="FrontImagePrv" src="" alt="Logo Images" width="150"
+                         height="150" style="border: 1px; margin-top: 20px; margin-left:120px;" />
+                </div>
+
+            </div>
+
+
+
+            <div class="form-group">
+                <label asp-for="Ngaysinh" class="control-label"></label>
+                <input asp-for="Ngaysinh" class="form-control" />
+                <span asp-validation-for="Ngaysinh" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GioiTinh" class="control-label"></label>
+                <select asp-for="GioiTinh" class="form-control">
+                    <option value="1"> Nam</option>
+                    <option value="2">Nữ</option>
+                </select>
+                <span asp-validation-for="GioiTinh" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script type="text/javascript">
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        })
+    
+    </script>
+
+    <script type="text/javascript">
+        $(".custom-file-input2").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label2").addClass("selected").html(fileName);
+        })
+
+    </script>
+}

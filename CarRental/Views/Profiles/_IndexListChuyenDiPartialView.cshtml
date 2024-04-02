@@ -1,0 +1,63 @@
+﻿@using CarRental.Areas.Admin.Models
+@model List<CarRental.Areas.Admin.Models.DonDatXe>
+
+<div>
+	<div class="btn-grChuyendi">
+		<div class="btn-item">
+
+				<a href="#" id="chuaduyet">Chưa duyệt</a>
+		</div>
+		<div class="btn-item">
+
+				<a href="#" id="daduyet">Đã duyệt</a>
+			</div>
+		<div class="btn-item">
+
+				<a href="#" id="hoanthanh">Hoàn thành</a>
+			</div>
+	</div>
+
+	<div id="contentList">
+	</div>
+
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/assets/js/vendor.min.js"></script>
+<script src="~/assets/libs/apexcharts/apexcharts.min.js"></script>
+<script src="~/assets/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
+<script src="~/assets/libs/jquery-vectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="~/assets/libs/jquery-vectormap/jquery-jvectormap-world-mill-en.js"></script>
+@* thuvientinhngayKC *@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+<!-- Peity chart-->
+
+
+<script>
+
+	$(document).ready(function () {
+		getdataChuyendiCus();
+		console.log("vào được function");
+	});
+
+	$(document).ready(function () {
+
+		$("#daduyet").click(function () {
+			getdataChuyendidaduyet();
+
+		});
+
+		$("#hoanthanh").click(function () {
+			getdataChuyendidathanhtoan();
+		});
+
+
+		$("#chuaduyet").click(function () {
+			getdataChuyendiCus();
+		});
+	});
+
+</script>

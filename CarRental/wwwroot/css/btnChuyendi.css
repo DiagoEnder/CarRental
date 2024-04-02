@@ -1,0 +1,14 @@
+﻿body {
+}
+.btn-grChuyendi {
+    display: flex;
+}
+    .btn-grChuyendi a {
+        text-decoration: none;
+        padding: 16px 24px;
+        color: #fff;
+        background-color: #5fcf86;
+        border-color: #5fcf86;
+        border-radius:10px;
+        margin-right:10px;
+    }

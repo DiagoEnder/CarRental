@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "_FeedbackList";
+    Layout = null;
+}
+
+@model List<CarRental.Areas.Admin.Models.Feedback>
+
+
+<link href="d:\reamke\carrental\carrental\wwwroot\css\voting.css" rel="stylesheet" />
+@if (Model != null && Model.Any())
+{
+
+        @foreach (var cmt in Model)
+        {
+            <div class="user-review mb-2">
+                <div class="users">
+                    <div class="users-img">
+
+                    <img class="img-detail" src="@Url.Content("~/Upload/" + cmt.InfoUserCus.Img)" style="height:100px; border-radius:50%;">
+                    </div>
+                    <div class="users-name">
+
+                    @cmt.InfoUserCus.Name
+                    </div>
+                </div>
+                <div class="date-review mb-2">
+                    <i class="fa-regular fa-calendar"></i>
+                    @cmt.Date
+
+                </div>
+                <div class="content-review mb-2">
+
+                    @cmt.Noidung
+                </div>
+
+                <div class="date-review mb-2">
+
+                    @for (int i = 1; i<= cmt.Danhgia; i++)
+                    {
+                        <i class="fa-solid fa-star active"></i>
+                    }
+
+                </div>
+            </div>
+        }
+
+}
+else
+{
+    <p>No comments available.</p>
+}

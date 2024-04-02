@@ -1,0 +1,43 @@
+﻿@using CarRental.Areas.Admin.Models;
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@model List<HoaDon>
+
+<h1>Admin ở đây</h1>
+
+
+<h1>Thông Tin Đơn Hàng</h1>
+
+<div class="info">
+    <strong>User:</strong> @ViewBag.User <br />
+    <strong>Chuxe:</strong> @ViewBag.Chuxe <br />
+    <strong>Tổng Doanh Thu:</strong> @ViewBag.Tong <br />
+    <strong>Lợi Nhuận:</strong> @ViewBag.Loinhuan <br />
+</div>
+
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>ID Khách Hàng</th>
+            <th>ID Chủ Xe</th>
+            <th>Ngày Thanh Toán</th>
+            <th>Tổng Tiền</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ID</td>
+                <td>@item.IdCus</td>
+                <td>@item.IdOwner</td>
+                <td>@item.Paymentdate</td>
+                <td>@item.Total</td>
+            </tr>
+        }
+    </tbody>
+</table>

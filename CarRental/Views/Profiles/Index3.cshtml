@@ -1,0 +1,145 @@
+﻿@model CarRental.Areas.Admin.Models.InfoUser
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutForParital.cshtml";
+}
+
+<h1>Index</h1>
+
+<div>
+    <h4>InfoUser</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdUser)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdUser)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CCCD)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CCCD)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.GPLX)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.GPLX)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ImgGplx)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ImgGplx)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Img)
+        </dt>
+        <dd class = "col-sm-10">
+            <a id="changeImg" data-toggle="modal" data-target="#exampleModal" href="#">
+                <img src="@Url.Content("~/Upload/" + Model.Img)" style="width:450px" />
+
+            </a>
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ngaysinh)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ngaysinh)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.GioiTinh)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.GioiTinh)
+        </dd>
+    </dl>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cập nhật ảnh đại diện</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <div class="mb-3">
+
+                        <div class="custom-file">
+                            <input asp-for="FrontImage" type="file" class="custom-file-input" id="FLFrontImage"
+                                   onchange="document.getElementById('FrontImagePrv').src = window.URL.createObjectURL(this.files[0])" />
+                            @* <label class="custom-file-label" for="FLFrontImage"></label> *@
+                        </div>
+
+                        <img id="FrontImagePrv" src="" alt="Avatar Images" width="150"
+                             height="150" style="border: 1px; margin-top: 20px; margin-left:120px;" />
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+                <button id="btnImg" type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        })
+
+        $(document).ready(function () {
+
+            var id = @Model.Id;
+            $("#btnImg").click(function () {
+
+                var fileInput = document.getElementById('FLFrontImage');
+                var file = fileInput.files[0];
+                var formData = new FormData();
+                formData.append('FrontImage', file);
+                formData.append('Id', id);
+
+
+                console.log("Daclick");
+
+                $.ajax({
+                    type: "Post",
+                    url: "@Url.Action("Edit","Profiles")",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        alert("Thanh cong");
+
+
+                    },
+                    error: function() {
+                        alert("Ko thể update Img");
+                    }
+                });
+            });
+
+        });
+
+    </script>
+}
+

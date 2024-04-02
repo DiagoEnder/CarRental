@@ -1,0 +1,100 @@
+﻿@model CarRental.Areas.Admin.Models.SanPham
+
+@{
+    ViewData["Title"] = "CreateSp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="bg-page" style="width:100%; height:100%; background:#f6f6f6;padding-bottom:80px;padding-top:80px;">
+
+    <div class="container" style="border-radius:10px; background:#fff;">
+<div class="row">
+            <div class="col-6 col6-form">
+        <form enctype="multipart/form-data" asp-action="CreateSp">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+           
+           
+            <div class="form-group">
+                <label asp-for="Loinhan" class="control-label">Lời nhắn</label>
+                <input asp-for="Loinhan" class="form-control" />
+                <span asp-validation-for="Loinhan" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Diachixe" class="control-label">Địa chỉ</label>
+                <input asp-for="Diachixe" class="form-control" />
+                <span asp-validation-for="Diachixe" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LimitXechay" class="control-label"> Giới hạn xe chạy</label>
+                <input asp-for="LimitXechay" class="form-control" />
+                <span asp-validation-for="LimitXechay" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GiaVuot" class="control-label">Giá vượt</label>
+                <input asp-for="GiaVuot" class="form-control" />
+                <span asp-validation-for="GiaVuot" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <div class="mb-3">
+                    <label asp-for="FrontImage" class="form-label">Ảnh xe</label>
+                    <div class="custom-file">
+                        <input asp-for="FrontImage" type="file" class="custom-file-input" id="FLFrontImage"
+                               onchange="document.getElementById('FrontImagePrv').src = window.URL.createObjectURL(this.files[0])" />
+                        <label class="custom-file-label" for="FLFrontImage"></label>
+                    </div>
+                    <span asp-validation-for="FrontImage" class="text-danger"></span>
+                    <img id="FrontImagePrv" src="" alt="Logo Images" width="150"
+                         height="150" style="border: 1px; margin-top: 20px; margin-left:120px;" />
+                </div>
+
+            </div>
+
+
+
+            <div class="form-group">
+                <label asp-for="GioiHankmgiaoxe" class="control-label">Giới hạn km giao xe</label>
+                <input asp-for="GioiHankmgiaoxe" class="form-control" />
+                <span asp-validation-for="GioiHankmgiaoxe" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gia" class="control-label">Giá thuê</label>
+                <input asp-for="Gia" class="form-control" />
+                <span asp-validation-for="Gia" class="text-danger"></span>
+            </div>
+           <div class="line-page">
+
+           </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary btn-regcar" />
+            </div>
+        </form>
+            <div class="back-home">
+                <a asp-action="Index">Back to List</a>
+            </div>
+    </div>
+
+            <div class="col-6 col6-img">
+                <img src="~/img/pexels-kamshotthat-3457780.jpg" width="100%" />
+            </div>
+</div>
+
+
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script type="text/javascript">
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        })
+
+    </script>
+
+    
+}

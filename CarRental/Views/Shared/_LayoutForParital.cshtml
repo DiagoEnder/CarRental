@@ -1,0 +1,150 @@
+﻿@using Microsoft.AspNetCore.Mvc;
+@inject IHttpContextAccessor HttpContextAccessor;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CarRental</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/CarRental.styles.css" asp-append-version="true" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+    <script src="script.js" defer></script>
+    <script src="~/js/site.js"></script>
+
+    @* calendar *@
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_green.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CarRental</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div id="navbar" class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                       
+                       
+
+                        @if(!string.IsNullOrEmpty(HttpContextAccessor.HttpContext.Session.GetString("UserName")))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">LogOut</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="DangKySP">Đăng ký cho thuê</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Profiles" asp-action="Index">Xin chào! @HttpContextAccessor.HttpContext.Session.GetString("UserName")</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                                    Login
+                                </button>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Start" asp-action="Regis">Register</a>
+                            </li>
+                            </li>
+                        }
+
+                           
+                    </ul>
+                    
+                </div>
+
+                
+            </div>
+        </nav>
+    </header>
+
+
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            <div class="container d-flex align-items-stretch">
+                <nav id="sidebar" class="img" style="background-image: url(images/bg_1.jpg);">
+                    <div class="p-4">
+                        <h1><a href="index.html" class="logo">Travel <span>Travel Agency</span></a></h1>
+                        <ul class="list-unstyled components mb-5">
+                            <li class="active">
+
+                                <a href="#" id="acc"><span class=" fa fa-home mr-3"></span> tài khoản của tôi</a>
+                            </li>
+                            <li>
+                                <a href="#" id="chuyendi"><span class=" fa fa-user mr-3"></span> Chuyến đi</a>
+                            </li>
+                            <li>
+                                <a id="mycar" href="#"><span class="fa fa-plane mr-3"></span> Xe của tôi</a>
+                            </li>
+                            <li>
+                                <a href="#"><span class="fa fa-sticky-note mr-3"></span> Đổi mật khẩu</a>
+                            </li>
+                            <li>
+                                <a href="#"><span class="fa fa-cogs mr-3"></span>Đăng xuất</a>
+                            </li>
+                            <li>
+                                <a href="#"><span class="fa fa-paper-plane mr-3"></span> Xóa tài khoản</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </nav>
+
+                <!-- Page Content  -->
+                <div id="content" class="p-4 p-md-5 pt-5">
+                    @RenderBody()
+
+
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - CarRental - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+
+    <script src="~/assets/js/vendor.min.js"></script>
+
+    <script src="~/assets/libs/apexcharts/apexcharts.min.js"></script>
+    <script src="~/assets/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
+    <script src="~/assets/libs/jquery-vectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="~/assets/libs/jquery-vectormap/jquery-jvectormap-world-mill-en.js"></script>
+
+
+    <!-- Peity chart-->
+    <script src="~/assets/libs/peity/jquery.peity.min.js"></script>
+
+
+    <!-- init js -->
+    <script src="~/assets/js/pages/dashboard-2.init.js"></script>
+
+    <!-- App js -->
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

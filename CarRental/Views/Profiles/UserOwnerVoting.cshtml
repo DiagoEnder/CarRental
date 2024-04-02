@@ -1,0 +1,177 @@
+﻿@using CarRental.Areas.Admin.Models;
+@using CarRental.Models.ViewModel;
+
+@{
+    ViewData["Title"] = "UserOwnerVoting";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/voting.css" rel="stylesheet" />
+@model ProfileFeedbackViewModel;
+<div class="container">
+
+    <div class="review-bg mb-3" >
+        <!-- Nội dung khác của bạn ở đây -->
+        <h4>Review</h4>
+    </div>
+
+
+
+
+@* <div>
+
+    @if (Model.InfoUser != null)
+    {
+        @Model.InfoUser.Name <br />
+        @Model.InfoUser.Ngaysinh <br />
+        @Model.InfoUser.CCCD <br /> 
+
+       
+    }
+    else
+    {
+        <h3> chủ xe đã khóa</h3>
+    }
+
+
+</div> *@
+@if (Model.InfoUser != null)
+    {
+        <input type="hidden" id="iduser" name="userId" value="@Model.InfoUser.IdUser" />
+    }
+<div class="row">
+    <div class="col-6 review">
+            <div class="rating-box">
+                <header>How was your experience?</header>
+                <div class="stars">
+                    <i class="fa-solid fa-star" data-value="1"></i>
+                    <i class="fa-solid fa-star" data-value="2"></i>
+                    <i class="fa-solid fa-star" data-value="3"></i>
+                    <i class="fa-solid fa-star" data-value="4"></i>
+                    <i class="fa-solid fa-star" data-value="5"></i>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Bình luận</label>
+                <textarea class="form-control" id="textcmt" placeholder="Hãy để lại trải nghiệm" rows="3"></textarea>
+            </div>
+
+            <button type="submit" id="savefb" class="btn btn-primary">
+                Submit
+            </button>
+    </div>
+        <div class="col-6 list-review">
+            <h4>
+                Danh sách bình luận
+            </h4>
+            @* --------------List Comment ----------------- *@
+            <div id="feedbackList">
+            </div>
+        </div>
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+@section Scripts {
+    <script>
+
+        function loadfeedback() {
+            var id = $("#iduser").val();
+            $.ajax({
+                type: "Get",
+                url: "@Url.Action("GetFeedbackcList","Profiles")",
+                data: { IdOwner: id },
+                success: function (data) {
+                    $("#feedbackList").html(data);
+                },
+                error: function () {
+                    alert("Loi API");
+                }
+            });
+        }
+
+        $(document).ready(function () {
+
+            loadfeedback();
+
+        });
+
+        $(document).ready(function () {
+            const stars = document.querySelectorAll(".stars i");
+
+            let a = null;
+
+            stars.forEach((star, index1) => {
+
+                star.addEventListener("click", () => {
+
+                    stars.forEach((star, index2) => {
+
+                        index1 >= index2 ? star.classList.add("active") : star.classList.remove("active");
+
+
+                    });
+                });
+            });
+
+
+            $(".stars i").click(function () {
+                const value = $(this).data("value");
+                a = value;
+
+
+            });
+
+
+
+
+            $("#savefb").click(function () {
+
+                var cmt = $("#textcmt").val();
+                var id = $("#iduser").val();
+                var model = {
+                    IdCarOwner: id,
+                    Noidung: cmt,
+                    Danhgia: a
+                };
+
+
+                $.ajax({
+                    type: "Post",
+                    url: "@Url.Action("AddCmt","Profiles")",
+                    data: model,
+                    success: function () {
+                        console.log("Add cmt thanh cong");
+                        $("#textcmt").val("");
+                        loadfeedback();
+                    },
+                    error: function () {
+                        alert("Sai API");
+                    }
+                });
+            });
+
+
+
+        });
+
+
+
+
+
+
+
+
+    </script>
+}

@@ -1,0 +1,162 @@
+﻿@using CarRental.Areas.Admin.Models;
+
+@model List<DonDatXe>;
+
+<h1>
+    các chuyến xe khách thuê nằm ở đây
+</h1>
+
+@if(Model.Count() > 0 || Model.Any())
+{
+    <table class="table table-centered mb-0">
+        <thead class="font-13 bg-light text-muted">
+            <tr>
+                <th class="font-weight-medium">Ảnh xe</th>
+                <th class="font-weight-medium">ảnh user</th>
+                <th class="font-weight-medium">tên người đặt xe</th>
+
+                <th class="font-weight-medium">Checkin</th>
+                <th class="font-weight-medium">Checkout</th>
+                <th class="font-weight-medium">Địa điểm giao xe</th>
+
+                <th class="font-weight-medium">Ngày đặt</th>
+
+
+                <th class="font-weight-medium text-center" style="width: 125px;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DonDatXe item in Model)
+            {
+                <tr>
+                    <td>
+                        <a href="javascript:void(0);" class="text-dark">
+                            <img src="@Url.Content("~/Upload/" + item.SanPham.Img)" style="width:100px">
+
+                        </a>
+                    </td>
+
+                    <td>
+                        
+                        <img src="@Url.Content("~/Upload/" + item.InfoUserCus.Img)" style="width:100px">
+                    </td>
+
+                    <td>
+                       
+                        tên người đặt, @item.InfoUserCus.Name<br>
+                        
+                        
+                    </td>
+                    <td class="text-muted font-13">
+                        @item.checkin
+                    </td>
+                    <td class="text-muted font-13">
+                        @item.checkout
+                    </td>
+
+                    <td class="text-muted font-13">
+                        @item.Location
+                    </td>
+
+                    <td class="text-muted font-13">
+                        @item.ngayDat
+                    </td>
+
+                    <td>
+
+                        <button type="button" data-id="@item.ID" class="btn btn-link font-18 text-muted btn-sm chapnhan">
+                            Chấp nhận
+                            <i class="mdi mdi-close"></i>
+                        </button>
+
+
+                        <button id="tuchoi" type="button" data-id="@item.ID" href="#" class="btn btn-link font-18 text-muted btn-sm">
+                            Từ chối
+                            <i class="mdi mdi-pencil"></i>
+                        </button>
+
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h2>
+        Bạn vẫn chưa có đơn đặt xe nào Hết
+    </h2>
+}
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+
+<script src="~/assets/js/vendor.min.js"></script>
+
+<script src="~/assets/libs/apexcharts/apexcharts.min.js"></script>
+<script src="~/assets/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
+<script src="~/assets/libs/jquery-vectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="~/assets/libs/jquery-vectormap/jquery-jvectormap-world-mill-en.js"></script>
+
+
+<!-- Peity chart-->
+<script src="~/assets/libs/peity/jquery.peity.min.js"></script>
+
+
+
+<script>
+    $(document).ready(function () {
+
+        $(".chapnhan").click(function () {
+            var Id = $(this).data("id");
+            var State = 2;
+
+            $.ajax({
+                type: "POST", 
+                url: "@Url.Action("UpdateState","Profiles")",
+                data: {
+                    Id: Id,
+                    State: State
+                },
+                success: function (res) {
+                    getdataDuyetXe();
+                    console.log("Thành công đơn đặt xe");
+                    
+
+
+                },
+                error: function () {
+                    alert("Gặp sự cố khi cập nhật trạng thái");
+                }
+            });
+        });
+
+        $("#tuchoi").click(function () {
+            var Id = $(this).data("id");
+            var State = 0;
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("UpdateState","Profiles")",
+                data: {
+                    Id: Id,
+                    State: State
+                },
+                success: function (res) {
+                    getdataDuyetXe();
+                    console.log("Thành công từ chối xe");
+                   
+                },
+                error: function () {
+                    alert("Gặp sự cố khi cập nhật trạng thái");
+                }
+            });
+        });
+
+
+    });
+</script>

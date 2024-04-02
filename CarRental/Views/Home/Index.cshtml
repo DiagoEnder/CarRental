@@ -1,0 +1,305 @@
+﻿@using CarRental.Areas.Admin.Models;
+@using CarRental.Models.ViewModel;
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var random = new Random();
+    var shuffledModel = Model.OrderBy(x => random.Next()).Take(8).ToList();
+}
+@model List<IndexSPViewModel>
+<div class="container" style="padding-bottom:80px">
+    <div class="slogan-page bg-slogan">
+        <div class="slogan-text">
+            <h1 class="my">Carrental - Cùng Bạn Đến Mọi Hành Trình</h1>
+            <div class="line-bg ">
+            </div>
+            <h4 class="my">Trải nghiệm sự khác biệt từ <span style="color:#5fcf86!important">hơn 8000</span>  xe gia đình đời mới khắp Việt Nam</h4>
+        </div>
+    </div>
+    <div class="slider-page">
+    </div>
+</div>
+<div class="product">
+    <div class="container">
+        <div class="title-section">
+            <h2>Xe dành cho bạn</h2>
+        </div>
+        <div class="row">
+            @foreach (var item in shuffledModel)
+            {
+                <div class="col-3">
+                    <div class="product-item">
+                        <div class="item-pic">
+                            <div class="bg">
+                                <a asp-controller="Home" asp-action="Detail" asp-route-idxe="@item.Id" asp-route-idowner="@item.IdChuXe" asp-fragment="" class="details-link">
+                                    <img src="@Url.Content("~/Upload/" + @item.Imgxe)" style="width:100%;height:183px; background-size:cover;">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="product-item-transmissions">
+                            @if (item.TruyenDong == 1)
+                            {
+                                <text>Số tự động</text>
+                            }
+                            else
+                            {
+                                <text>Số sàn</text>
+                            }
+                        </div>
+                        <div class="product-item-name text-uppercase my-2">
+                            @item.Name
+                        </div>
+                        <div class="product-item-loca">
+                            <div class="location">
+
+                                <i class="fa-solid fa-location-dot"></i>
+                                <p>@item.Loca</p>
+                            </div>
+                        </div>
+                        <div class="line-item">
+                        </div>
+                        <p class="product-item-price">@item.Gia</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="benefit-page">
+        <div class="title-section">
+            <h2>
+
+                Ưu Điểm Của Carrental
+            </h2>
+        </div>
+        <div class="sub-title">
+            <h5>
+
+                Những tính năng giúp bạn dễ dàng hơn khi thuê xe trên Carrental.
+            </h5>
+        </div>
+        <div class="content-benefit">
+            <div class="benefit-item">
+                <img src="https://www.mioto.vn/static/media/dich_vu_thue_xe_tu_lai_hanoi.f177339e.svg" />
+                <h5>An tâm đặt xe</h5>
+                <p>Không tính phí huỷ chuyến trong vòng 1h sau khi đặt cọc. Hoàn cọc và bồi thường 100% nếu chủ xe huỷ chuyến trong vòng 7 ngày trước chuyến đi.</p>
+            </div>
+            <div class="benefit-item">
+                <img src="https://www.mioto.vn/static/media/cho_thue_xe_tu_lai_tphcm.1e7cb1c7.svg" />
+                <h5>Thủ tục đơn giản</h5>
+                <p>Chỉ cần có CCCD gắn chip (Hoặc Passport) & Giấy phép lái xe là bạn đã đủ điều kiện thuê xe trên Carrental.</p>
+            </div>
+            <div class="benefit-item">
+                <img src="https://www.mioto.vn/static/media/cho_thue_xe_tu_lai_hanoi.735438af.svg" />
+                <h5>Thanh toán dễ dàng</h5>
+                <p>Đa dạng hình thức thanh toán: ATM, thẻ Visa & Ví điện tử (Momo, VnPay, ZaloPay).</p>
+            </div>
+            <div class="benefit-item">
+                <img src="https://www.mioto.vn/static/media/thue_xe_tu_lai_gia_re_hcm.ffd1319e.svg" />
+                <h5>Giao xe tận nơi</h5>
+                <p>Bạn có thể lựa chọn giao xe tận nhà/sân bay... Phí tiết kiệm chỉ từ 15k/km.</p>
+            </div>
+            <div class="benefit-item">
+                <img src="https://www.mioto.vn/static/media/thue_xe_tu_lai_gia_re_hanoi.4035317e.svg" />
+                <h5>Dòng xe đa dạng</h5>
+                <p>Hơn 100 dòng xe cho bạn tuỳ ý lựa chọn: Mini, Sedan, CUV, SUV, MPV, Bán tải.</p>
+            </div>
+            <div class="benefit-item">
+                <img src="https://www.mioto.vn/static/media/thue_xe_co_tai_xe.a6f7dc54.svg" />
+                <h5>Lái xe an toàn</h5>
+                <p>Vững tay lái với gói bảo hiểm thuê xe từ nhà bảo hiểm MIC & VNI.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="protect-page">
+    <div class="container">
+        <div class="title-section" style="margin-bottom:64px">
+            <h2>Hành Trình Của Bạn Luôn Được Bảo Vệ</h2>
+        </div>
+        <div class="list-protect">
+
+            <img src="~/img/vni.d1b15e7a.jpg" />
+            <img src="~/img/global-care.e4fc7ef6.jpg" />
+            <img src="~/img/mic.ad48f066.jpg" />
+            <img src="~/img/pvi.cfd48052.jpg" />
+        </div>
+    </div>
+</div>
+
+<div class="instructions-page">
+    <div class="container">
+        <div class="title-section">
+            <h2>
+                Hướng Dẫn Thuê Xe
+            </h2>
+        </div>
+        <div class="sub-title">
+            <h5>Chỉ với 4 bước đơn giản để trải nghiệm thuê xe Carrental một cách nhanh chóng</h5>
+        </div>
+        <div class="list-ins">
+            <div class="items-ins">
+                <div class="ins-img">
+
+                    <img src="https://www.mioto.vn/static/media/cho_thue_xe_co_taigia_re_tphcm.12455eba.svg" />
+                </div>
+                <div class="ins-text">
+                    <h5 class="text-primary">01</h5>
+                    <h5>Đặt xe trên<br />web Carrental</h5>
+                </div>
+            </div>
+            <div class="items-ins">
+                <div class="ins-img">
+
+                    <img src="https://www.mioto.vn/static/media/gia_thue_xe_7cho_tai_tphcm.9455973a.svg" />
+                </div>
+                <div class="ins-text">
+                    <h5 class="text-primary">02</h5>
+                    <h5>Nhận xe</h5>
+                </div>
+            </div>
+            <div class="items-ins">
+                <div class="ins-img">
+
+                    <img src="https://www.mioto.vn/static/media/gia_thue_xe_7cho_tai_hanoi.0834bed8.svg" />
+                </div>
+                <div class="ins-text">
+                    <h5 class="text-primary">
+                        03
+                    </h5>
+                    <h5>Bắt đầu<br />hành trình</h5>
+                </div>
+            </div>
+            <div class="items-ins">
+                <div class="ins-img">
+
+                    <img src="https://www.mioto.vn/static/media/gia_thue_xe_4cho_tai_tphcm.9dcd3930.svg" />
+                </div>
+                <div class="ins-text">
+                    <h5 class="text-primary">04</h5>
+                    <h5>Trả xe & kết thúc<br />chuyến đi</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="about">
+        <div class="about-img">
+            <img src="~/img/about2.png" />
+        </div>
+        <div class="about-text">
+            <img src="~/css/alphabet.png" />
+            <h2>
+                Bạn muốn biết thêm <br />
+                về Carrental?
+            </h2>
+            <p>
+                Carrental kết nối khách hàng có nhu cầu thuê xe với hàng ngàn chủ xe ô tô ở TPHCM, Hà Nội & các tỉnh thành khác.
+                Carrental hướng đến việc xây dựng cộng đồng người dùng ô tô văn minh & uy tín tại Việt Nam.
+            </p>
+            <div class="btn-about">
+                <a href="/home/about">Tìm hiểu thêm</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="">
+</div>
+@* ----------------------- *@
+
+<!-- Modal -->
+@* <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="InputPassword" placeholder="Password">
+                </div>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="login" type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</div> *@
+
+@section Scripts {
+    <script>
+        // $(document).ready(function () {
+        //     var count = 0;
+        //     $("#login").click(function (event) {
+        //         // Ngăn chặn hành vi mặc định của form
+
+        //         var email = $('#InputEmail').val();
+        //         var pass = $('#InputPassword').val();
+
+        //         var model = {
+        //             Email: email,
+        //             Password: pass
+        //         };
+
+        //         $.ajax({
+        //             type: "POST",
+        //             url: "@Url.Action("Login","Start")",
+        //             data: model,
+        //             success: function (res) {
+        //                 if (res.success) {
+        //                     window.location.href = "@Url.Action("Index", "Home")"; // Chuyển hướng về trang Home/Index
+        //                 } else {
+        //                     alert(res.message);
+        //                     count++;
+        //                     if (count == 3) {
+        //                         window.location.href = "@Url.Action("FormLogin", "Start")";
+        //                     }
+
+        //                 }
+        //             },
+        //             error: function () {
+        //                 alert("Tài khoản hoặc mật khẩu sai");
+
+        //             }
+        //         });
+        //     });
+
+        // });
+        $(document).ready(function () {
+            // Lấy giá trị từ class product-item-price
+            var priceElements = $('.product-item-price');
+
+            // Duyệt qua mỗi phần tử để chuyển đổi giá trị
+            priceElements.each(function () {
+
+                var giaText = $(this).text().replace(/\D/g, '');
+
+                // Chuyển đổi sang đơn vị nghìn đồng (K)
+                var gia = parseInt(giaText);
+                var giaK = gia / 1000;
+
+                // Hiển thị giá trị đã chuyển đổi
+                $(this).text(giaK + 'K');
+            });
+        });
+
+    </script>
+}
+
+

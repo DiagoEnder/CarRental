@@ -1,0 +1,130 @@
+﻿@using CarRental.Areas.Admin.Models
+@model CarRental.Areas.Admin.Models.InfoXe;
+
+<style>
+    /* Custom CSS styles for the modal */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+    }
+
+
+
+    .modal-title {
+        font-size: 18px;
+    }
+
+    .modal-body {
+        padding: 10px;
+    }
+
+    .modal-footer {
+        padding: 10px;
+        border-top: 1px solid #ddd;
+        text-align: right;
+    }
+
+    .btn1 {
+        padding: 5px 10px;
+        margin: 0 5px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    .btn-primary1 {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .btn-danger1 {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+    .btn-close1 {
+        float: right;
+    }
+</style>
+
+<div class="modal fade" id="addInfoxe">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <div>
+                    <h4 class="modal-title">Create Xe</h4>
+
+                </div>
+                <button type="button" class="btn1 btn-close1" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <form method="post" asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="modal-body">                
+                    <div class="form-group">
+                        <label asp-for="Bienso" class="control-label"></label>
+                        <input asp-for="Bienso" class="form-control" />
+                        <span asp-validation-for="Bienso" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="IdHang" class="control-label"></label>
+                        <select id="lstHangId" asp-for="IdHang" class="form-control" asp-items="ViewBag.Hang"
+                                onchange="FillLoais(this,'lstLoaiId');" ></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IdLoaiXe" class="control-label"></label>
+                        <select id="lstLoaiId" asp-for="IdLoaiXe" class="form-control" asp-items="ViewBag.Loai"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IdUser" class="control-label"></label>
+                        <select asp-for="IdUser" class="form-control" asp-items="ViewBag.User"></select>
+                    </div>
+
+
+
+
+                    <div class="form-group">
+                        <label asp-for="Soghe" class="control-label"></label>
+                        <input asp-for="Soghe" class="form-control" />
+                        <span asp-validation-for="Soghe" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Truyendong" class="control-label"></label>
+                        <input asp-for="Truyendong" class="form-control" />
+                        <span asp-validation-for="Truyendong" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LoaiNl" class="control-label"></label>
+                        <input asp-for="LoaiNl" class="form-control" />
+                        <span asp-validation-for="LoaiNl" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label asp-for="Mota" class="control-label"></label>
+                        <input asp-for="Mota" class="form-control" />
+                        <span asp-validation-for="Mota" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn1 btn-primary1">Lưu</button>
+                    <button type="button" class="btn1 btn-danger1" data-dismiss="modal">Đóng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+@* <script>
+    function redirectToIndex() {
+        window.location.href = '@Url.Action("Index", "Hangs", new { area = "Admin" })';
+    }
+</script> *@

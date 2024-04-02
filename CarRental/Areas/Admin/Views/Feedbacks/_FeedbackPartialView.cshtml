@@ -1,0 +1,114 @@
+﻿@using CarRental.Areas.Admin.Models
+@model CarRental.Areas.Admin.Models.Feedback
+
+<style>
+    /* Custom CSS styles for the modal */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+    }
+
+
+
+    .modal-title {
+        font-size: 18px;
+    }
+
+    .modal-body {
+        padding: 10px;
+    }
+
+    .modal-footer {
+        padding: 10px;
+        border-top: 1px solid #ddd;
+        text-align: right;
+    }
+
+    .btn1 {
+        padding: 5px 10px;
+        margin: 0 5px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    .btn-primary1 {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .btn-danger1 {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+    .btn-close1 {
+        float: right;
+    }
+</style>
+
+<div class="modal fade" id="addFeed">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <div>
+                    <h4 class="modal-title">Create Thương Hiệu</h4>
+
+                </div>
+                <button type="button" class="btn1 btn-close1" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <form method="post" asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="modal-body">
+
+
+                    
+                        
+                        <div class="stars">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                    
+
+                    <div class="form-group">
+                        <label asp-for="Noidung" class="control-label"></label>
+                        <input asp-for="Noidung" class="form-control" />
+                        <span asp-validation-for="Noidung" class="text-danger"></span>
+                    </div>
+                   
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn1 btn-primary1">Lưu</button>
+                    <button type="button" class="btn1 btn-danger1" data-dismiss="modal">Đóng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+ <script>
+    const stars = document.querySelectorAll(".stars i");
+
+    // Loop through the "stars" NodeList
+    stars.forEach((star, index1) => {
+        // Add an event listener that runs a function when the "click" event is triggered
+        star.addEventListener("click", () => {
+            // Loop through the "stars" NodeList Again
+            stars.forEach((star, index2) => {
+                // Add the "active" class to the clicked star and any stars with a lower index
+                // and remove the "active" class from any stars with a higher index
+                index1 >= index2 ? star.classList.add("active") : star.classList.remove("active");
+            });
+        });
+    });
+</script> 

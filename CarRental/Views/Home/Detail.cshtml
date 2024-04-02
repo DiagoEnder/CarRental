@@ -1,0 +1,1012 @@
+﻿@using CarRental.Areas.Admin.Models;
+@inject IHttpContextAccessor HttpContextAccessor;
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@model CarRental.Models.ViewModel.DetailsViewModel;
+
+<div>
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                @*  <img class="img-detail" src="@Url.Content("~/Upload/" + Model.SanPham.Img)" style="width:100%;"> *@
+                <a asp-item-idxe=>
+                    <img class="img-detail" src="@Url.Content("~/Upload/" + Model.SanPham.Img)" style="width:100%">
+                </a>
+                <div class="row">
+                    <div class="col-12 ">
+                        <div class="car-header-name py-4 px-3">
+                            <div class="car-name text-uppercase">
+
+                                @Model.SanPham.InfoXe.Loaixe.Name
+
+                            </div>
+                            <div class="car-location">
+                                <i class="fa-solid fa-location-dot"></i>
+                                @Model.SanPham.Diachixe
+                            </div>
+                            <div class="type-transmissions mt-2">
+                                @if (Model.SanPham.InfoXe.Truyendong == 1)
+                                {
+                                    <text>Số tự động</text>
+                                }
+                                else
+                                {
+                                    <text>Số sàn</text>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 ">
+                        <div class="car-feature py-4 px-3">
+                            <div class="header-feature pb-4">
+                                Đặc điểm
+                            </div>
+                            <div class="list-feature">
+                                <div class="item-feature">
+                                    <div class="item-img">
+                                        <img src="~/img/car-seat.png" />
+                                    </div>
+                                    <div class="item-text">
+
+                                        <div class="item-feature-header">
+                                            Số ghế
+                                        </div>
+                                        <div class="item-feature-body">
+
+                                            @Model.SanPham.InfoXe.Soghe
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-feature">
+                                    <div class="item-img">
+                                        <img src="~/img/gear-shift.png" />
+                                    </div>
+                                    <div class="item-text">
+                                        <div class="item-feature-header">
+                                            Truyền động
+                                        </div>
+                                        <div class="item-feature-body">
+
+                                            @if (Model.SanPham.InfoXe.Truyendong == 1)
+                                            {
+                                                <text>Số tự động</text>
+                                            }
+                                            else
+                                            {
+                                                <text>Số sàn</text>
+                                            }
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="item-feature">
+                                    <div class="item-img">
+                                        <img src="~/img/oil.png" />
+                                    </div>
+                                    <div class="item-text">
+                                        <div class="item-feature-header">
+
+                                            Nhiên Liệu
+                                        </div>
+                                        <div class="item-feature-body">
+                                            @if (Model.SanPham.InfoXe.LoaiNl == "1")
+                                            {
+                                                <text>Xăng</text>
+                                            }
+                                            else if (Model.SanPham.InfoXe.LoaiNl == "2")
+                                            {
+                                                <text>Dầu</text>
+                                            }
+                                            else
+                                            {
+                                                <text>Điện</text>
+
+                                            }
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-12">
+                        <div class="car-disc py-4 px-3">
+                            <div class="header-disc pb-4">
+                                Mô tả
+                            </div>
+                            <div class="text-disc">
+                                @Model.SanPham.InfoXe.Mota
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="car-disc py-4 px-3">
+                            <div class="header-untility pb-4">
+                                Tiện ích
+                            </div>
+                            <div class="list-untility">
+                                @foreach (var d in Model.XeTinhNang)
+                                {
+                                    <div class="item-untility">
+                                        <i class="fa-solid fa-circle-check"></i>
+                                        @d.TinhNang.Name
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="required-paper py-4 px-3">
+                            <div class="required-paper-name pb-4">
+                                Giấy tờ thuê xe
+                            </div>
+                            <div class="required-paper-text p-4">
+                                <div class="mb-3" style="font-size:12px; color: #666">
+                                    <i class="fa-solid fa-circle-exclamation"></i>
+                                    Chọn 1 trong 2 hình thức
+                                </div>
+                                <div class="mb-3" style="font-weight:600">
+                                    <i class="fa-solid fa-id-card"></i>
+                                    GPLX & CCCD gắn chip (đối chiếu)
+                                </div>
+                                <div style="font-weight:600">
+                                    <i class="fa-solid fa-passport"></i>
+                                    GPLX (đối chiếu) & Passport (Giữ lại)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 review ">
+                        <div class="py-4 px-3">
+                            <div class="review-header pb-4 ">
+                                Đánh giá sản phẩm
+                            </div>
+                            <div class="review-product">
+                                @if (Model.Feedback != null && Model.Feedback.Any())
+                                {
+                                    <ul>
+                                        @foreach (var cmt in Model.Feedback)
+                                        {
+                                            <div class="user-review">
+                                                <div class="username">
+                                                    <i class="fa-regular fa-user"></i>
+                                                    @cmt.InfoUserCus.Name
+                                                </div>
+                                                <div class="content-review">
+                                                    <i class="fa-regular fa-comment"></i>
+                                                    @cmt.Noidung
+                                                </div>
+                                                <div class="date-review">
+
+                                                    @for (int i = 1; i <= cmt.Danhgia; i++)
+                                                    {
+                                                        <i class="fa-solid fa-star active"></i>
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        }
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <p>No comments available.</p>
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="bill p-4 mb-4" style="background-color:#f7fbff ">
+                    <div class="mb-3 rent-cost">
+                        <h4 class="detail-price">
+                            @Model.SanPham.Gia / ngày
+                        </h4>
+                    </div>
+                    <div class="row my-2">
+                        <div class="col-6 c6-date">
+                            <label>Nhận xe</label>
+                            <input id="myID1" placeholder="Ngày checkin" />
+                        </div>
+                        <div class="col-6 c6-date">
+                            <label>Trả xe</label>
+                            <input id="myID2" placeholder="Ngày checkout" />
+                        </div>
+                        <div class="col-12 c12-loca mt-2 mb-3">
+                            <label>Địa điểm nhận xe</label>
+                            <input id="location" placeholder="Vi trí giao" />
+                        </div>
+                    </div>
+                    <div class="row my-2 " style=" border-bottom:1px solid #e0e0e0; margin-left:0px; margin-right:0px"></div>
+                    <div class="row my-2">
+                        <div class="col-6 " style="color:#333">
+                            Đơn giá thuê
+                        </div>
+                        <div class="col-6 text-end cost">
+                            @Model.SanPham.Gia
+                        </div>
+                    </div>
+                    <div class="row my-2">
+                        <div class="col-6" style="color:#333">
+                            Phí dịch vụ
+                        </div>
+                        <div class="col-6 text-end cost">
+
+                            @(Convert.ToDouble(Model.SanPham.Gia) * 13 / 100)
+
+                        </div>
+                    </div>
+                    <div class="row my-2" style=" border-bottom:1px solid #e0e0e0; margin-left:0px; margin-right:0px"></div>
+                    <div class="row my-2">
+                        <div class="col-6" style="color:#333">
+                            Tổng phí thuê xe
+                        </div>
+                        <div class="col-6 text-end fw-bold detail-total">
+
+                            @(Convert.ToDouble(Model.SanPham.Gia) * 13 / 100 + Convert.ToDouble(Model.SanPham.Gia)) <span id="numberOfDays"></span>
+                        </div>
+                    </div>
+                    <div class="row my-2" style=" border-bottom:1px solid #e0e0e0; margin-left:0px; margin-right:0px"></div>
+                    <div class="row my-2 pb-2 fw-bold">
+                        <div class="col-6">
+                            Tổng cộng
+                        </div>
+                        <div class="col-6 text-end fw-bold detail-total-price">
+                            @(Convert.ToDouble(Model.SanPham.Gia) * 13 / 100 + Convert.ToDouble(Model.SanPham.Gia))
+                        </div>
+                    </div>
+                    <div>
+                        <a type="button" href="#" class="w-100 d-block btn btn-confirm" id="btndatxe" ">CHỌN THUÊ</a>
+                    </div>
+                </div>
+                <div class="note">
+                    <div class="note-header">
+                        Phụ phí có thể phát sinh
+                    </div>
+                    <div class="item-note mb-2">
+                        <div class="row">
+                            <div class="item-note-header col-6">
+                                <i class="fa-solid fa-circle-exclamation"></i>
+                                Phí vượt giới hạn
+                            </div>
+                            <div class="item-note-header item-note1 col-6 text-end">
+                        @Model.SanPham.GiaVuot đ/km
+                            </div>
+                            <div class="col-12 item-note-text">
+                                Phụ phí phát sinh nếu lộ trình di chuyển vượt quá
+                                400km khi thuê xe 1 ngày.
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="item-note mb-2">
+                        <div class="row">
+                            <div class="item-note-header col-6">
+                                <i class="fa-solid fa-circle-exclamation"></i>
+                                Phí quá giờ
+                            </div>
+                            <div class="item-note-header col-6 text-end">
+
+                                90 000đ/h
+                            </div>
+                            <div class="col-12 item-note-text">
+                                Phụ phí phát sinh nếu hoàn trả xe trễ giờ.
+                                Trường hợp trễ quá 5 tiếng, phụ phí thêm 1 ngày thuê
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="item-note mb-2">
+                        <div class="row">
+                            <div class="item-note-header col-6">
+                                <i class="fa-solid fa-circle-exclamation"></i>
+                                Phí vệ sinh
+                            </div>
+                            <div class="item-note-header col-6 text-end">
+
+                                100 000đ
+                            </div>
+                            <div class="col-12 item-note-text">
+                                Phụ phí phát sinh khi xe hoàn trả không đảm bảo vệ sinh
+                                (nhiều vết bẩn, bùn cát, sình lầy...)
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="item-note">
+                        <div class="row">
+                            <div class="item-note-header col-6">
+                                <i class="fa-solid fa-circle-exclamation"></i>
+                                Phí khử mùi
+                            </div>
+                            <div class="item-note-header col-6 text-end">
+
+                                400 000đ
+                            </div>
+                            <div class="col-12 item-note-text">
+                                Phụ phí phát sinh khi xe hoàn trả bị ám mùi khó chịu
+                                (mùi thuốc lá, thực phẩm nặng mùi...)
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- Button trigger modal -->
+                        @* <button id="btndatxe" style="display: block;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+    Đặt xe ngay
+</button> *@
+<button id="btnhuydatxe" style="display: none;" type="button" class="btn btn-primary">
+    Hủy đặt xe
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="DatXeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle1">Xác nhận đặt xe</h5>
+                <button type="button" class="close closeModal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row my-2">
+
+                    Ban xac nhan dat xe
+                    @* <div class="col-6 c6-date">
+                        <label>Nhận xe</label>
+                        <input id="myID1" placeholder="Ngày checkin" />
+                    </div>
+                    <div class="col-6 c6-date">
+                        <label>Trả xe</label>
+                        <input id="myID2" placeholder="Ngày checkout" />
+                    </div>
+                    <div class="col-12 c12-loca mt-2 mb-3">
+                        <label>Địa điểm nhận xe</label>
+                        <input id="location" placeholder="Vi trí giao" />
+                    </div> *@
+                </div>
+            </div>
+
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary closeModal">Close</button>
+                <button id="datxe" type="button" class="btn btn-primary">Đặt xe</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+                        @* modaldangkythongtin của người dùng *@
+<div class="modal fade" id="dangkiModal" tabindex="-1" role="dialog" aria-labelledby="dangkiModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <button type="button" class="close closeModal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="control-label">Name</label>
+                    <input id="name" class="form-control" />
+
+                </div>
+                <div class="form-group">
+                    <label class="control-label">CCCD</label>
+                    <input id="cccd" class="form-control" />
+
+                </div>
+                <div class="form-group">
+                    <label class="control-label"> GPLX</label>
+                    <input id="gplx" class="form-control" />
+
+                </div>
+
+
+
+                <div class="form-group">
+                    <div class="mb-3">
+                        <label class="form-label"> Ảnh GPLX</label>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input2" id="FLFrontImage2"
+                                   onchange="document.getElementById('FrontImagePrv2').src = window.URL.createObjectURL(this.files[0])" />
+                            <label class="custom-file-label2" for="FLFrontImage2"></label>
+                        </div>
+
+                        <img id="FrontImagePrv2" src="" alt="Logo Images" width="150"
+                             height="150" style="border: 1px; margin-top: 20px; margin-left:120px;" />
+                    </div>
+
+                </div>
+
+
+                        @*File*@
+                <div class="form-group">
+                    <div class="mb-3">
+                        <label class="form-label"> Avatar</label>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="FLFrontImage"
+                                   onchange="document.getElementById('FrontImagePrv').src = window.URL.createObjectURL(this.files[0])" />
+                            <label class="custom-file-label" for="FLFrontImage"></label>
+                        </div>
+
+                        <img id="FrontImagePrv" src="" alt="Logo Images" width="150"
+                             height="150" style="border: 1px; margin-top: 20px; margin-left:120px;" />
+                    </div>
+
+                </div>
+
+
+
+                <div class="form-group">
+                    <label class="control-label">Ngày sinh</label>
+                    <input id="myID3" class="form-control" />
+                    <
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Giới tính</label>
+                    <select id="gioitinh" class="form-control">
+                        <option value="1"> Nam</option>
+                        <option value="2">Nữ</option>
+                    </select>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary closeModal">Close</button>
+                <button id="btnluuinfo" type="button" class="btn btn-primary">Lưu thông tin</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script>
+        // var userId = '@HttpContextAccessor.HttpContext.Session.GetInt32("IdUser")';
+        // function CheckInfoUser() {
+
+        //     $.ajax({
+        //         type: "GET",
+        //         url: "@Url.Action("CheckInfoUser","Home")",
+        //         success: function (res) {
+        //             // Kiểm tra res và res.result
+        //             if (res && res.result == 0) {
+
+        //                 $('#dangkiModal').modal('show');
+        //             } else {
+        //                 $('#DatXeModal').modal('show');
+        //             };
+        //         },
+        //         error: function () {
+        //             alert("Có lỗi khi kiểm tra thông tin người dùng.");
+        //         }
+        //     });
+
+        // };
+
+
+
+
+
+        // cuaNghia ----------------
+        // $(document).ready(function () {
+        //     var giaVuot = "@Model.SanPham.GiaVuot";
+        //     var giaChuyenDoi = giaVuot.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1 ');
+        //     $('.item-note1').text(giaChuyenDoi + 'đ/km');
+        // });
+        // $(document).ready(function () {
+        //     // Lấy giá trị từ class product-item-price
+        //     var priceElements = $('.detail-price, .cost, .detail-total-price, .detail-total');
+
+        //     // Duyệt qua mỗi phần tử để chuyển đổi giá trị
+        //     priceElements.each(function () {
+
+        //         var giaText = $(this).text().replace(/\D/g, '');
+
+        //         // Chuyển đổi sang đơn vị nghìn đồng (K)
+        //         var gia = parseInt(giaText);
+        //         var giaK = gia / 1000;
+
+        //         // Hiển thị giá trị đã chuyển đổi
+        //         $(this).text(giaK + 'K/ngày');
+        //     });
+        // });
+
+
+
+        // $(document).ready(function () {
+        //     function dateDiffInDays(a, b) {
+        //         const diffInMs = b - a;
+        //         return Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
+        //     }
+
+        //     function updateRentalCost() {
+        //         var checkin = new Date($('#myID1').val());
+        //         var checkout = new Date($('#myID2').val());
+
+        //         if (!isNaN(checkin.getTime()) && !isNaN(checkout.getTime())) {
+        //             var numberOfDays = dateDiffInDays(checkin, checkout);
+        //             var dailyCost = parseFloat('@Model.SanPham.Gia'.replace(',', '')); // Đơn giá thuê
+        //             var serviceFeeRate = 0.13; // Phần trăm phí dịch vụ
+        //             $('#pickupDateLabel').text('Nhận xe: ' + formatDate(checkin));
+        //             $('#returnDateLabel').text('Trả xe: ' + formatDate(checkout));
+        //             $('#pickupLocationLabel').text('Địa điểm nhận xe: ' + location);
+        //             // Tính chi phí thuê
+        //             var rentalCost = numberOfDays * dailyCost;
+
+        //             // Tính phí dịch vụ (13% của chi phí hàng ngày)
+        //             var serviceFee = serviceFeeRate * rentalCost;
+        //             var totalPrice = dailyCost + serviceFee;
+        //             // Tính tổng chi phí thuê
+        //             var totalCost = totalPrice * numberOfDays;
+        //             $('#numberOfDays').text(numberOfDays + ' ngày');
+        //             // Hiển thị chi phí trong giao diện người dùng
+        //             $('.cost').eq(0).text(dailyCost.toLocaleString('vi-VN') + ' VND/ngày'); // Hiển thị đơn giá thuê
+        //             $('.cost').eq(1).text(serviceFee.toLocaleString('vi-VN') + ' VND/ngày'); // Hiển thị phí dịch vụ
+        //             $('.detail-total-price').text(totalCost.toLocaleString('vi-VN') + ' VND')
+        //             $('.detail-total').text(totalPrice.toLocaleString('vi-VN') + ' x ' + numberOfDays + ' ngày'); // Hiển thị tổng chi phí
+
+        //         }
+        //     }
+
+        //     flatpickr("#myID1", {
+        //         onChange: updateRentalCost
+        //     });
+
+        //     flatpickr("#myID2", {
+        //         onChange: updateRentalCost
+        //     });
+
+        //     // Cập nhật ban đầu khi trang tải
+        //     updateRentalCost();
+
+
+        // });
+
+
+
+        // //-------------------
+
+
+        // $(document).ready(function () {
+
+        //     flatpickr("#myID1", {});
+        //     flatpickr("#myID2", {});
+        //     flatpickr("#myID3", {});
+
+
+
+
+
+
+        //     $(".custom-file-input").on("change", function () {
+        //         var fileName = $(this).val().split("\\").pop();
+        //         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        //     });
+
+
+
+
+        //     $(".custom-file-input2").on("change", function () {
+        //         var fileName = $(this).val().split("\\").pop();
+        //         $(this).siblings(".custom-file-label2").addClass("selected").html(fileName);
+        //     });
+
+        //     // ---- CHECKLOGIN AT THERE - ----
+        //     $("#btndatxe").click(function () {
+
+        //         if (userId) {
+        //             console.log("da chay checkinfo user");
+
+        //             CheckInfoUser();
+        //         }
+        //         else {
+        //             alert("Login để đặt xe");
+        //         }
+
+        //     });
+
+        //     //-------- CLOSE MODAL AT THERE- --- -
+
+        //     $(".closeModal").click(function () {
+        //         $(this).closest('.modal').modal('hide');
+
+        //     });
+
+
+
+
+        //     $("#datxe").click(function () {
+        //         var checkin = $('#myID1').val();
+        //         var checkout = $('#myID2').val();
+        //         var Idsp = @Model.SanPham.Id;
+        //         var Idowner = @Model.SanPham.IdChuXe;
+        //         var location = $('#location').val();
+        //         var model = {
+        //             IdSp: Idsp,
+        //             IdOwner: Idowner,
+        //             Location: location,
+        //             checkin: checkin,
+        //             checkout: checkout
+        //         };
+
+
+
+        //         $.ajax({
+        //             type: "POST",
+        //             url: "@Url.Action("Datxe", "Home")",
+        //             data: model,
+        //             success: function (res) {
+        //                 if (res.success) {
+        //                     console.log("Thanhcong")
+        //                     $("#btndatxe").hide();
+        //                     $("#btnhuydatxe").show();
+
+        //                     document.querySelector("#DatXeModal [data-dismiss='modal']").click();
+        //                     location.reload();
+
+        //                 }
+        //             },
+        //             error: function () {
+        //                 alert("Không thể hoàn thành đơn, vui lòng kiểm tra lại thông tin");
+        //             }
+        //         });
+        //     });
+
+
+
+
+
+
+
+
+
+        //     $("#btnluuinfo").click(function () {
+        //         var fileInput1 = document.getElementById('FLFrontImage');
+        //         var fileInput2 = document.getElementById('FLFrontImage2');
+        //         var file1 = fileInput1.files[0];
+        //         var file2 = fileInput2.files[0];
+        //         var formData = new FormData();
+
+
+        //         var gioitinh = $("#gioitinh").val();
+
+        //         var ngaysinh = $("#myID3").val();
+        //         var ns = new Date(ngaysinh);
+        //         if (!isNaN(ns.getTime())) {
+
+        //             var date = ns.toISOString();
+        //         }
+
+        //         var name = $("#name").val();
+        //         var cccd = $("#cccd").val();
+        //         var gplx = $("#gplx").val();
+
+
+        //         formData.append('FrontImage', file1);
+        //         formData.append('FrontImage2', file2);
+        //         formData.append('GioiTinh', gioitinh);
+        //         formData.append('NgaySinh', date);
+        //         formData.append('Name', name);
+        //         formData.append('CCCD', cccd);
+        //         formData.append('GPLX', gplx);
+
+
+
+        //         $.ajax({
+        //             type: "Post",
+        //             url: "@Url.Action("CreateInfoUser","InfoUsers")",
+        //             data: formData,
+        //             processData: false,
+        //             contentType: false,
+        //             success: function (res) {
+        //                 $("#dangkiModal").modal('hide');
+        //                 alert("Bạn đã đăng ký thành công thông  tin");
+
+
+        //             },
+
+        //             error: function () {
+        //                 alert("Noooo");
+
+        //             }
+        //         });
+        //     });
+
+
+        //     $("#btnhuydatxe").click(function () {
+
+
+        //         window.location.href = '@Url.Action("Index", "Profiles")';
+        //     });
+
+
+
+
+
+        // });
+        // -----------------------------
+        var userId = '@HttpContextAccessor.HttpContext.Session.GetInt32("IdUser")';
+        $(document).ready(function () {
+            var giaVuot = "@Model.SanPham.GiaVuot";
+            var giaChuyenDoi = giaVuot.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1 ');
+            $('.item-note1').text(giaChuyenDoi + 'đ/km');
+        });
+
+        $(document).ready(function () {
+            flatpickr("#myID1", {});
+            flatpickr("#myID2", {});
+            flatpickr("#myID3", {});
+
+
+
+            $(".custom-file-input").on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            })
+
+
+
+
+            $(".custom-file-input2").on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label2").addClass("selected").html(fileName);
+            })
+
+
+            checkLogin();
+
+
+            $("#datxe").click(function () {
+                var checkin = $('#myID1').val();
+                var checkout = $('#myID2').val();
+                var Idsp = @Model.SanPham.Id;
+                var Idowner = @Model.SanPham.IdChuXe;
+                var location = $('#location').val();
+                var model = {
+                    IdSp: Idsp,
+                    IdOwner: Idowner,
+                    Location: location,
+                    checkin: checkin,
+                    checkout: checkout
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("Datxe", "Home")",
+                    data: model,
+                    success: function (res) {
+                        if (res.success) {
+                            console.log("Thanhcong")
+                            $("#btndatxe").hide();
+                            $("#btnhuydatxe").show();
+
+                            $("#DatXeModal").modal('hide');
+                            location.reload();
+
+                        }
+                    },
+                    error: function () {
+                        alert("Không thể hoàn thành đơn, vui lòng kiểm tra lại thông tin");
+                    }
+                });
+            });
+
+            // $("#modalDatXe").click(function () {
+
+            //     $.ajax({
+            //         type: "Get",
+            //         url: "@Url.Action("CheckInfoUser","Home")",
+
+            //         success: function (res) {
+            //             if (res.result == 0) {
+            //                 $('#dangkiModal').modal('show');
+            //             }
+            //             else {
+            //                 $('#exampleModalCenter').modal('show');
+            //             }
+            //         },
+            //         error: function () {
+            //             alert("có lỗi khi checkuser info");
+            //         }
+            //     });
+
+            // });
+
+            $("#btnluuinfo").click(function () {
+                var fileInput1 = document.getElementById('FLFrontImage');
+                var fileInput2 = document.getElementById('FLFrontImage2');
+                var file1 = fileInput1.files[0];
+                var file2 = fileInput2.files[0];
+                var formData = new FormData();
+
+
+                var gioitinh = $("#gioitinh").val();
+
+                var ngaysinh = $("#myID3").val();
+                var ns = new Date(ngaysinh);
+                if (!isNaN(ns.getTime())) {
+
+                    var date = ns.toISOString();
+                }
+
+                var name = $("#name").val();
+                var cccd = $("#cccd").val();
+                var gplx = $("#gplx").val();
+
+
+                formData.append('FrontImage', file1);
+                formData.append('FrontImage2', file2);
+                formData.append('GioiTinh', gioitinh);
+                formData.append('NgaySinh', date);
+                formData.append('Name', name);
+                formData.append('CCCD', cccd);
+                formData.append('GPLX', gplx);
+
+
+
+                $.ajax({
+                    type: "Post",
+                    url: "@Url.Action("CreateInfoUser","InfoUsers")",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (res) {
+                        alert("Bạn đã đăng ký thành công thông  tin");
+                        $("#dangkiModal").modal('hide');
+
+                    },
+
+                    error: function () {
+                        alert("Noooo");
+
+                    }
+                });
+            });
+
+
+            $("#btnhuydatxe").click(function () {
+
+
+                window.location.href = '@Url.Action("Index", "Profiles")';
+            });
+
+        });
+        $(document).ready(function () {
+            var count = 0;
+            $("#login").click(function (event) {
+                // Ngăn chặn hành vi mặc định của form
+
+                var email = $('#InputEmail').val();
+                var pass = $('#InputPassword').val();
+
+                var model = {
+                    Email: email,
+                    Password: pass
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("Login","Start")",
+                    data: model,
+                    success: function (res) {
+                        if (res.success) {
+                            window.location.href = "@Url.Action("Index", "Home")"; // Chuyển hướng về trang Home/Index
+                        } else {
+                            alert(res.message);
+                            count++;
+                            if (count == 3) {
+                                window.location.href = "@Url.Action("FormLogin", "Start")";
+                            }
+
+                        }
+                    },
+                    error: function () {
+                        alert("Tài khoản hoặc mật khẩu sai");
+
+                    }
+                });
+            });
+
+        });
+        $(document).ready(function () {
+            // Lấy giá trị từ class product-item-price
+            var priceElements = $('.detail-price, .cost, .detail-total-price, .detail-total');
+
+            // Duyệt qua mỗi phần tử để chuyển đổi giá trị
+            priceElements.each(function () {
+
+                var giaText = $(this).text().replace(/\D/g, '');
+
+                // Chuyển đổi sang đơn vị nghìn đồng (K)
+                var gia = parseInt(giaText);
+                var giaK = gia / 1000;
+
+                // Hiển thị giá trị đã chuyển đổi
+                $(this).text(giaK + 'K/ngày');
+            });
+        });
+        var showin = $('#myID1').val();
+        var showout = $('#myID2').val();
+
+        $(document).ready(function () {
+            function dateDiffInDays(a, b) {
+                const diffInMs = b - a;
+                return Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
+            }
+
+            function updateRentalCost() {
+                var checkin = new Date($('#myID1').val());
+                var checkout = new Date($('#myID2').val());
+
+                if (!isNaN(checkin.getTime()) && !isNaN(checkout.getTime())) {
+                    var numberOfDays = dateDiffInDays(checkin, checkout);
+                    var dailyCost = parseFloat('@Model.SanPham.Gia'.replace(',', '')); // Đơn giá thuê
+                    var serviceFeeRate = 0.13; // Phần trăm phí dịch vụ
+
+                    // Tính chi phí thuê
+                    var rentalCost = numberOfDays * dailyCost;
+
+                    // Tính phí dịch vụ (13% của chi phí hàng ngày)
+                    var serviceFee = serviceFeeRate * rentalCost;
+                    var totalPrice = dailyCost + serviceFee;
+                    // Tính tổng chi phí thuê
+                    var totalCost = totalPrice * numberOfDays;
+                    $('#numberOfDays').text(numberOfDays + ' ngày');
+                    // Hiển thị chi phí trong giao diện người dùng
+                    $('.cost').eq(0).text(dailyCost.toLocaleString('vi-VN') + ' VND/ngày'); // Hiển thị đơn giá thuê
+                    $('.cost').eq(1).text(serviceFee.toLocaleString('vi-VN') + ' VND/ngày'); // Hiển thị phí dịch vụ
+                    $('.detail-total-price').text(totalCost.toLocaleString('vi-VN') + ' VND')
+                    $('.detail-total').text(totalPrice.toLocaleString('vi-VN') + ' x ' + numberOfDays + ' ngày'); // Hiển thị tổng chi phí
+                    $('#pickupDateLabel').text('Nhận xe: ' + formatDate(checkin));
+                    $('#returnDateLabel').text('Trả xe: ' + formatDate(checkout));
+                    $('#pickupLocationLabel').text('Địa điểm nhận xe: ' + location);
+                }
+            }
+
+            flatpickr("#myID1", {
+                onChange: updateRentalCost
+            });
+
+            flatpickr("#myID2", {
+                onChange: updateRentalCost
+            });
+
+            // Cập nhật ban đầu khi trang tải
+            updateRentalCost();
+            $('#modalin').text(showin);
+            $('#modalout').text(showin);
+
+        });
+
+    </script>
+}
+
+
+
+
+
+
+

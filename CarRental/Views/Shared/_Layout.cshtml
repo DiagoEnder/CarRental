@@ -1,0 +1,200 @@
+﻿@using Microsoft.AspNetCore.Mvc;
+@inject IHttpContextAccessor HttpContextAccessor;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CarRental</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/CarRental.styles.css" asp-append-version="true" />
+    <script src="https://kit.fontawesome.com/1c81948dfe.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+    <script src="script.js" defer></script>
+    <script src="~/js/site.js"></script>
+    <link href="~/css/nav1.css" rel="stylesheet" />
+    <link href="~/css/about.css" rel="stylesheet" />
+    <link href="~/css/detail.css" rel="stylesheet" />
+    <link href="~/css/btnchuyendi.css" rel="stylesheet" />
+    @* calendar *@
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_green.css">
+    <link href="~/css/review.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    @* -----dkxy-----css *@
+    <link href="~/css/dkxe.css" rel="stylesheet" />
+    <link href="~/css/profile.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+        <div class="nav">
+            <div class="container">
+                <div class="nav-page">
+                    <div class="nav-logo">
+                        <div class="nav-logo-img">
+
+                            <img src="~/css/alphabet.png" />
+                        </div>
+                        <div class="nav-logo-name">
+                            <a href="/home/index">
+                                arRental
+                            </a>
+                        </div>
+
+                    </div>
+                    @if (!string.IsNullOrEmpty(HttpContextAccessor.HttpContext.Session.GetString("UserName")))
+                    {
+                        <div class="nav-menu">
+
+                            <div class="nav-items">
+
+                                <a asp-area="" asp-controller="Home" asp-action="DangKySP">Đăng ký cho thuê</a>
+                            </div>
+                            <div class="nav-items">
+
+                                <a asp-area="" asp-controller="Profiles" asp-action="Index">Xin chào! @HttpContextAccessor.HttpContext.Session.GetString("UserName")</a>
+                            </div>
+                            <div class="nav-items">
+                                <a asp-area="" asp-controller="Home" asp-action="Logout">LogOut</a>
+                            </div>
+
+                        </div>
+                    }
+                    else
+                    {
+
+                        <div class="nav-menu">
+                            <div class="nav-items">
+                                <a asp-area="" asp-controller="Home" asp-action="about"> Về chúng tôi</a>
+                            </div>
+                            <div class="nav-items " style="border-left:solid 2px #ccc;padding:0 !important;height:26px; margin:auto 10px;">
+                            </div>
+                            <div class="nav-items nav-reg">
+                                <a asp-area="" asp-controller="Start" asp-action="Regis">Đăng ký</a>
+                            </div>
+
+                            <div class="nav-items nav-log">
+                                <a type="button"  data-toggle="modal" data-target="#LoginModal">Đăng nhập</a>
+                               
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+        <div>
+
+            @RenderBody()
+        </div>
+    </div>
+
+
+    @* -----------------------Modal-------------- *@
+    <div class="modal fade" id="LoginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="InputPassword" placeholder="Password">
+                    </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="login" type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+
+    <script src="~/assets/js/vendor.min.js"></script>
+
+    <script src="~/assets/libs/apexcharts/apexcharts.min.js"></script>
+    <script src="~/assets/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
+    <script src="~/assets/libs/jquery-vectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="~/assets/libs/jquery-vectormap/jquery-jvectormap-world-mill-en.js"></script>
+
+
+    <!-- Peity chart-->
+    <script src="~/assets/libs/peity/jquery.peity.min.js"></script>
+
+
+    <!-- init js -->
+    <script src="~/assets/js/pages/dashboard-2.init.js"></script>
+
+    <!-- App js -->
+    @await Component.InvokeAsync("NToastNotify")
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+
+<script>
+    $(document).ready(function () {
+        var count = 0;
+        $("#login").click(function (event) {
+            // Ngăn chặn hành vi mặc định của form
+
+            var email = $('#InputEmail').val();
+            var pass = $('#InputPassword').val();
+
+            var model = {
+                Email: email,
+                Password: pass
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("Login","Start")",
+                data: model,
+                success: function (res) {
+                    if (res.success) {
+                        window.location.href = "@Url.Action("Index", "Home")"; // Chuyển hướng về trang Home/Index
+                    } else {
+                        alert(res.message);
+                        count++;
+                        if (count == 3) {
+                            window.location.href = "@Url.Action("FormLogin", "Start")";
+                        }
+
+                    }
+                },
+                error: function () {
+                    alert("Tài khoản hoặc mật khẩu sai");
+
+                }
+            });
+        });
+
+    });
+</script>
